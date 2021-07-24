@@ -1,0 +1,54 @@
+import numpy as np
+import pandas as pd
+from sklearn.linear_model import SGDClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
+
+#데이터 불러오기 및 맨앞 5개 확인
+data = pd.read_csv('/content/water_potability.csv')
+data.head()
+
+#데이터 정보 확인
+data.info()
+
+#데이터 정보에서 NaN값들이 있는 것을 확인했고, NaN값은 그 열의 평균값으로 대체하기로함.
+#NaN값이 존재하는 열 : ph, Sulfate, Trihalomethanes
+data['ph'] = data['ph'].fillna(data['ph'].mean())
+data['Sulfate'] = data['Sulfate'].fillna(data['Sulfate'].mean())
+data['Trihalomethanes'] = data['Trihalomethanes'].fillna(data['Trihalomethanes'].mean())
+
+#타깃과 입력값 분류
+target = data[ 'Potability' ]
+input = data.drop('Potability', axis = 1)
+train_input, test_input, train_target, test_target = train_test_split(input, target, test_size = 0.2)
+
+#데이터전처리, 표준점수 사용
+ss = StandardScaler()
+ss.fit(train_input)
+train_scaled = ss.transform(train_input)
+test_scaled = ss.transform(test_input)
+
+#확률적 경사하강법, log손실함수 사용
+sc = SGDClassifier(loss = 'log')
+train_score = []
+test_score = []
+classes = np.unique(train_target)
+epoch = list(range(300))
+
+for _ in epoch:
+  sc.partial_fit(train_scaled, train_target, classes = classes)
+  train_score.append(sc.score(train_scaled, train_target))
+  test_score.append(sc.score(test_scaled, test_target))
+
+#훈련결과 시각화
+import matplotlib.pyplot as plt
+#index = [0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+y_value = np.arange(len(index))
+
+plt.plot(epoch,train_score)
+plt.plot(epoch,test_score)
+plt.xlabel('epoch')
+plt.ylabel('accuracy')
+#plt.yticks(y_value,index)
+plt.show()
+
