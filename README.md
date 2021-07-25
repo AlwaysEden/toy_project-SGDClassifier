@@ -4,6 +4,7 @@
 SGDClassifier을 공부한 후 이를 구현해보기 위한 학습목적으로 개발함.
 
 # 2. 설명
+데이터는 케글의 water_Potability.csv 파일을 가져와 사용하였음.
 pH value, Hardness, Solids, Chloramines, Sulfate, Conductivity, Organic_carbon, Trihalomethanes, Turbidity이라는 물의 특성을 사용해 마실 수 있는 물인지 아닌지 분류해내는 모델을 확률적 경사하강법으로 개발함. 
 
 
