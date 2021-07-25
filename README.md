@@ -4,6 +4,8 @@
 SGDClassifier을 공부한 후 이를 구현해보기 위한 학습목적으로 개발함.
 
 # 2. 설명
+pH value, Hardness, Solids, Chloramines, Sulfate, Conductivity, Organic_carbon, Trihalomethanes, Turbidity이라는 물의 특성을 사용해 마실 수 있는 물인지 아닌지 분류해내는 모델을 확률적 경사하강법으로 개발함. 
+
 
 # 3. 개발일지
 2021/07/24 NaN값은 평균값으로 넣어주고 데이터는 표준점수로 전처리한 후 훈련을 했는데 이를 시각화 해본 결과 많이 낮은 정확도를 보임.
